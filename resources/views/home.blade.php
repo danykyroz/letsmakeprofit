@@ -5,7 +5,7 @@
       <div class="column width-4 push-6">
         <div class="feature-content">
           <div class="feature-content-inner center-on-mobile pt-40 pt-mobile-80">
-            <h1 class="color-white mb-20">Lorem ipsum dolor sit amet, consectetur</h1>
+            <h1 class="color-white mb-20">Lorem ipsum dolor sit amet, consectetur ..</h1>
             <p class="color-white">Lorem ipsum dolor sit amet, consecte turLorem ipsum dolor sit amet, consecteturLorem ipsum dolor sit amet.</p>
             <a class="button medium text-uppercase border-white bkg-hover-charcoal color-white color-hover-white left mb-20 mb-mobile-50">
               <span class="icon-app-store left"></span>Registro
