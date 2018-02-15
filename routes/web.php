@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/registro', function () {
+    return view('registro');
+});
+Route::post('/registro/new','RegistroController@new');
