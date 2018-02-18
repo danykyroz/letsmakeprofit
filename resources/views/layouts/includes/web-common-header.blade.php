@@ -3,8 +3,8 @@
     <div class="column width-12 nav-bar-inner">
       <div class="logo">
         <div class="logo-inner">
-          <a href="index.html"><img src="images/logo-dark1.png" alt="Sartre Logo" /></a>
-          <a href="index.html"><img src="images/logo.png" alt="Sartre Logo" /></a>
+          <a href="/"><img src="images/logo-dark1.png" alt="Sartre Logo" /></a>
+          <a href="/"><img src="images/logo.png" alt="Sartre Logo" /></a>
         </div>
       </div>
       <nav class="navigation nav-block secondary-navigation nav-right">
