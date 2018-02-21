@@ -14,7 +14,7 @@
             <!-- Dropdown Login -->
             <div class="v-align-middle">
               <div class="">
-                <a href="login.html" class="button no-page-fade no-label-on-mobile small no-margin-bottom"><span class="icon-lock left"></span><span>Login</span></a>
+                <a href="/login" class="button no-page-fade no-label-on-mobile small no-margin-bottom"><span class="icon-lock left"></span><span>Login</span></a>
 
               </div>
             </div>
