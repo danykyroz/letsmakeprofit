@@ -32,7 +32,7 @@
 			<div class="column width-8">
 				<p class="mb-mobile-50">Fue Referido Por <span class="referidocolor">LOREN IMPUS</span></p>
 				<div class="contact-form-container">
-					<form class="contact-form" action="/registro/new" method="post" novalidate="">
+					<form class="contact-form" action="/registro/new" method="post" novalidate="" id="frm-registro"  >
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 						<div class="row">
@@ -52,10 +52,21 @@
 								</div>
 							</div>
 
-
 							<div class="column width-6">
 								<div class="field-wrapper">
 									<input type="text" name="date" class="form-aux form-date form-element large" value="29/11/1987" placeholder="Day/Month/Year" tabindex="5">
+								</div>
+							</div>
+
+							<div class="column width-6">
+								<div class="field-wrapper">
+									<input type="password" id="password" name="password" value="123456" class="form-password form-element large" placeholder="Password" tabindex="4" required="">
+								</div>
+							</div>
+
+							<div class="column width-6">
+								<div class="field-wrapper">
+									<input type="password" id="confirm_password" name="confirm_password" value="123456" class="form-password form-element large" placeholder="Confirmar Password" tabindex="6" required="">
 								</div>
 							</div>
 
@@ -83,12 +94,12 @@
 
 							<div class="column width-12">
 								<div class="field-wrapper pt-10 pb-10">
-									<input id="checkbox-1" class="form-element checkbox" name="checkbox-1" type="checkbox" checked="true" required="">
-									<label for="checkbox-1" class="checkbox-label" >I agree to the terms</label>
+									<input id="terminos" name="terminos" type="checkbox"  required="">
+									<label for="checkbox-1" class="checkbox-label" >Acepto terminos y condiciones</label>
 								</div>
 							</div>
 							<div class="column width-12">
-								<input type="submit" value="Send Email" class="medium bkg-theme bkg-hover-theme color-white color-hover-white">
+								<input type="submit" value="Send Email" id="enviar-form" class="medium bkg-theme bkg-hover-theme color-white color-hover-white">
 							</div>
 						</div>
 					</form>
@@ -98,4 +109,86 @@
 
 		</div>
 	</section>
+@stop
+
+@section('scripts')
+
+<script type="text/javascript"  src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+
+	$("#enviar-form").click(function(e){
+		e.preventDefault();
+		var validar_form=$( "#frm-registro" ).valid();
+		if(validar_form){
+			$("#frm-registro").submit();
+		}
+	})
+
+
+	$( "#frm-registro" ).validate({
+			rules: {
+				name:{
+					required:true,
+					minlength: 3
+				},
+				last_name:
+				{
+					required: true,
+					minlength: 3
+				},
+				email: {
+					required: true,
+					email: true
+				},
+				date:{
+					required:true
+				},
+				avatar:{
+					required: true
+				},
+				password: {
+					required: true,
+					minlength: 5
+				},
+				confirm_password: {
+					required: true,
+					minlength: 5,
+					equalTo: "#password"
+				},
+				terminos:{
+					required: true
+				}
+
+			},
+			messages: {
+				name: "Please enter your firstname",
+				last_name: "Please enter your lastname",
+				email: "Please enter a valid email address",
+				terminos: "Please accept our policy"
+			},
+			errorElement: "em",
+			errorPlacement: function ( error, element ) {
+				// Add the `help-block` class to the error element
+				error.addClass( "help-block" );
+
+				if ( element.prop( "type" ) === "checkbox" ) {
+					error.insertAfter( element.parent( ".checkbox-label" ) );
+				} else {
+					error.insertAfter( element );
+				}
+			},
+			highlight: function ( element, errorClass, validClass ) {
+				$( element ).parents( ".field-wrapper" ).addClass( "has-error" ).removeClass( "has-success" );
+			},
+			unhighlight: function (element, errorClass, validClass) {
+				$( element ).parents( ".field-wrapper" ).addClass( "has-success" ).removeClass( "has-error" );
+			}
+		});
+})
+
+</script>
+<script src="{{asset('theme/js/timr.min.js') }}"></script>
 @stop
