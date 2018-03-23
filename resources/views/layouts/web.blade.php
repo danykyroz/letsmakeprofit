@@ -11,6 +11,7 @@
 	<!-- Css -->
 	<link rel="stylesheet" href="{{ asset("theme/css/core.min.css") }}" />
 	<link rel="stylesheet" href="{{ asset("theme/css/custom.css") }}" />
+  <link rel="stylesheet" href="{{ asset("theme/css/web.css") }}" />
   @yield('estilos')
 
 </head>

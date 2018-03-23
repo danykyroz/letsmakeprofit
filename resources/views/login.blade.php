@@ -8,12 +8,25 @@
     <div class="login_title">
       <span>Login </span>
     </div>
+
+    @if ($errors->any())
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
+  <form action="userlogin" id="frm-login" method="post" >
+
+     {{csrf_field()}}
     <div class="login_fields">
       <div class="login_fields__user">
         <div class="icon">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/user_icon_copy.png">
         </div>
-        <input placeholder="Username" type="text">
+        <input placeholder="Username" type="text" name="email">
           <div class="validation">
             <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/tick.png">
           </div>
@@ -23,18 +36,22 @@
         <div class="icon">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/lock_icon_copy.png">
         </div>
-        <input placeholder="Password" type="password">
+        <input placeholder="Password" type="password" name="password">
         <div class="validation">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/217233/tick.png">
         </div>
 
       </div>
       <div class="login_fields__submit">
-        <input type="submit" value="Log In">
+      <input type="submit" id="submit-login" name="Enviar" value="Entrar">
         <div class="forgot">
           <a href="#">Nueva contraseña?</a>
         </div>
       </div>
+
+</form>
+
+
     </div>
    <div class="success">
       <h2>Authentication Success</h2>
@@ -65,4 +82,18 @@
 
 
   			</div>
+  @stop
+  @section('scripts')
+  <script>
+  $(document).ready(function(){
+    $("#submit-login").click(function(e){
+      e.preventDefault();
+      //alert("Enviando");
+      $("#frm-login").submit();
+
+
+    })
+
+  })
+  </script>
   @stop

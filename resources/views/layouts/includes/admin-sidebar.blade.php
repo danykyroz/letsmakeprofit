@@ -8,7 +8,7 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class="{{ Request::is('admin/dashboard')? 'active': '' }}">
-                <a href="/admin/dashboard">
+                <a href="/dashboard">
                     <i class="material-icons">dashboard</i>
                     <p>Dashboard</p>
                 </a>

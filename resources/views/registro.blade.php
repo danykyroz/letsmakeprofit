@@ -19,6 +19,11 @@
 			<div class="column width-12 center">
 				<h2 class="mb-80">Lorem ipsum dolor </h2>
 			</div>
+
+
+
+
+
 			<div class="column width-4 v-align-middle">
 				<div class="feature-column">
 					<div class="feature-text">
@@ -30,10 +35,21 @@
 			</div>
 
 			<div class="column width-8">
-				<p class="mb-mobile-50">Fue Referido Por <span class="referidocolor">LOREN IMPUS</span></p>
+
+				@if ($errors->any())
+					    <div class="alert alert-danger">
+					        <ul>
+					            @foreach ($errors->all() as $error)
+					                <li>{{ $error }}</li>
+					            @endforeach
+					        </ul>
+					    </div>
+					@endif
+				<p class="mb-mobile-50">Fue Referido Por <span class="referidocolor">{{ $nombre }}</span></p>
 				<div class="contact-form-container">
 					<form class="contact-form" action="/registro/new" method="post" novalidate="" id="frm-registro"  >
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="_parentId" value="{{ $relid }}">
 
 						<div class="row">
 							<div class="column width-6">
@@ -48,7 +64,7 @@
 							</div>
 							<div class="column width-6">
 								<div class="field-wrapper">
-									<input type="email" name="email" value="danykyroz@gmail.com" class="form-email form-element large" placeholder="Email address*" tabindex="3" required="">
+									<input type="email" name="email" value="danykyroz@gmail.com" id="email" class="form-email form-element large" placeholder="Email address*" tabindex="3" required="">
 								</div>
 							</div>
 
@@ -66,23 +82,23 @@
 
 							<div class="column width-6">
 								<div class="field-wrapper">
-									<input type="password" id="confirm_password" name="confirm_password" value="123456" class="form-password form-element large" placeholder="Confirmar Password" tabindex="6" required="">
+									<input type="password" id="confirm_password" name="password_confirmation" value="123456" class="form-password form-element large" placeholder="Confirmar Password" tabindex="6" required="">
 								</div>
 							</div>
 
 							<div class="column width-12">
 								<div class="field-wrapper pt-10 pb-10">
-									<input id="radio-1" class="form-element radio" name="avatar" type="radio"  checked="true" >
+									<input id="radio-1" class="form-element radio" name="avatar" type="radio"  checked="true" value="1" >
 									<label for="radio-1" class="radio-label">Avatar1</label>
-									<input id="radio-2" class="form-element radio" name="avatar" type="radio">
+									<input id="radio-2" class="form-element radio" name="avatar" type="radio" value="2">
 									<label for="radio-2" class="radio-label">Avatar2</label>
-									<input id="radio-3" class="form-element radio" name="avatar" type="radio" >
+									<input id="radio-3" class="form-element radio" name="avatar" type="radio" value="3" >
 									<label for="radio-3" class="radio-label">Avatar3</label>
-									<input id="radio-4" class="form-element radio" name="avatar" type="radio" >
+									<input id="radio-4" class="form-element radio" name="avatar" type="radio" value="4" >
 									<label for="radio-4" class="radio-label">Avatar4</label>
-									<input id="radio-5" class="form-element radio" name="avatar" type="radio" >
+									<input id="radio-5" class="form-element radio" name="avatar" type="radio" value="5" >
 									<label for="radio-5" class="radio-label">Avatar5</label>
-									<input id="radio-6" class="form-element radio" name="avatar" type="radio" >
+									<input id="radio-6" class="form-element radio" name="avatar" type="radio" value="6" >
 									<label for="radio-6" class="radio-label">Avatar6</label>
 								</div>
 							</div>
@@ -93,13 +109,13 @@
 						<div class="row">
 
 							<div class="column width-12">
-								<div class="field-wrapper pt-10 pb-10">
-									<input id="terminos" name="terminos" type="checkbox"  required="">
+								<div class="field-wrapper pt-10 pb-10 checkboxes" >
+									<input id="terminos" name="terminos" type="checkbox" value="1"  required="">
 									<label for="checkbox-1" class="checkbox-label" >Acepto terminos y condiciones</label>
 								</div>
 							</div>
 							<div class="column width-12">
-								<input type="submit" value="Send Email" id="enviar-form" class="medium bkg-theme bkg-hover-theme color-white color-hover-white">
+								<input type="submit" value="Registrarme" id="enviar-form" class="medium bkg-theme bkg-hover-theme color-white color-hover-white" style="cursor:pointer">
 							</div>
 						</div>
 					</form>
@@ -118,12 +134,34 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+errores=0;
+ $("#email").blur(function(e){
+	 $.get("existe_email",{email:$(this).val()},function(response){
+		  console.log(response);
+			if(response.success){
+				$("#email").parent().find("span").remove();
+				$("#email").parent().append($("<span id='error_email'>Email ya esta siendo usado por otro usuario</span>"));
+				errores++;
+			}else{
+				$("#email").parent().find("span").remove();
+				if(errores>0){
+					errores--;
+				}
+			}
+	 });
+
+ })
 
 	$("#enviar-form").click(function(e){
 		e.preventDefault();
 		var validar_form=$( "#frm-registro" ).valid();
 		if(validar_form){
-			$("#frm-registro").submit();
+			if(errores==0){
+					$("#frm-registro").submit();
+			}else{
+				alert("Verifique que el correo no este siendo usado por otro usuario");
+			}
+
 		}
 	})
 
@@ -169,13 +207,11 @@ $(document).ready(function(){
 				email: "Please enter a valid email address",
 				terminos: "Please accept our policy"
 			},
-			errorElement: "em",
+
 			errorPlacement: function ( error, element ) {
-				// Add the `help-block` class to the error element
-				error.addClass( "help-block" );
 
 				if ( element.prop( "type" ) === "checkbox" ) {
-					error.insertAfter( element.parent( ".checkbox-label" ) );
+					error.insertAfter( element.parent( ".checkboxes" ) );
 				} else {
 					error.insertAfter( element );
 				}
@@ -190,5 +226,5 @@ $(document).ready(function(){
 })
 
 </script>
-<script src="{{asset('theme/js/timr.min.js') }}"></script>
+
 @stop

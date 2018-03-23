@@ -1,11 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers  ;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-class LoginController extends Controller
+use App\Models\User;
+use App\Models\Clientes;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+
+use Auth;
+
+
+class UserLoginController extends Controller
 {
   /*
   |--------------------------------------------------------------------------
@@ -27,36 +36,30 @@ class LoginController extends Controller
   */
   protected $redirectTo = '/home';
 
-  /**
-  * Create a new controller instance.
-  *
-  * @return void
-  */
-  public function __construct()
-  {
-    $this->middleware('guest')->except('logout');
-  }
 
-  public function doLogin(){
+
+  public function doLogin(Request $request){
 
     $rules = array(
       'email'    => 'required|email', // make sure the email is an actual email
-      'password' => 'required|alphaNum|min:3' // password can only be alphanumeric and has to be greater than 3 characters
+      'password' => 'required|min:3' // password can only be alphanumeric and has to be greater than 3 characters
     );
 
-    $validator = Validator::make(Input::all(), $rules);
+    $validator = Validator::make($request->all(), $rules);
 
     // if the validator fails, redirect back to the form
     if ($validator->fails()) {
-      return Redirect::to('login')
+      return redirect('/login')
       ->withErrors($validator) // send back all errors to the login form
-      ->withInput(Input::except('password')); // send back the input (not the password) so that we can repopulate the form
+      ->withInput(); // send back the input (not the password) so that we can repopulate the form
+
+
     } else {
 
       // create our user data for the authentication
       $userdata = array(
-        'email'     => Input::get('email'),
-        'password'  => Input::get('password')
+        'email'     => $request->get('email'),
+        'password'  => $request->get('password')
       );
 
       // attempt to do the login
@@ -66,12 +69,12 @@ class LoginController extends Controller
         // redirect them to the secure section or whatever
         // return Redirect::to('secure');
         // for now we'll just echo success (even though echoing in a controller is bad)
-        echo 'SUCCESS!';
+        return redirect()->route('dashboard');
 
       } else {
 
         // validation not successful, send back to form
-        return Redirect::to('login');
+        return redirect()->route('login');
 
       }
 
@@ -79,3 +82,12 @@ class LoginController extends Controller
 
     }
   }
+
+  public function logout(Request $request){
+
+    Auth::logout();
+    return redirect('/login');
+
+  }
+
+}

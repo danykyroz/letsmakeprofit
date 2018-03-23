@@ -53,7 +53,8 @@
                     <h4 class="card-title">Alec Thompson</h4>
                     <p class="card-content">
                         Link De Asociado: <br>
-                        <span>www.letsmakeprofit.com/sdfdfsdfd</span>
+                        {{ App\Http\Controllers\HelperController::link_asociado() }}
+
                     </p>
 
 
@@ -62,7 +63,7 @@
                     <a href="/admin/perfil" class="btn btn-primary btn-round">editar</a>
             </div>
              <li>
-                        <a href="/">Cerrar sesion</a>
+                        <a href="/logout">Cerrar sesion</a>
                     </li>
 
                 </ul>

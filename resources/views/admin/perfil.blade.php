@@ -215,7 +215,7 @@
         <h4 class="card-title">Alec Thompson</h4>
         <p class="card-content">
           Link De Asociado: <br>
-          <span>www.letsmakeprofit.com/sdfdfsdfd</span>
+          {{ App\Http\Controllers\HelperController::link_asociado() }}
         </p>
       </div>
       <p>Descarga el material de ayuda, informate con los tutoriales de la plataforma.</p>

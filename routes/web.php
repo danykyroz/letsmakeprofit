@@ -14,31 +14,39 @@
 Route::get('/', function () {
     return view('home');
 });
-Route::get('/registro', function () {
-    return view('registro');
-});
-Route::get('/login', function () {
-    return view('login');
-});
-Route::get('admin', function () {
+Route::get('/registro','RegistroController@index');
+Route::get('/existe_email','RegistroController@existe_email');
+Route::get('/login',["as"=>"login", function () {
+    return View::make('login');
+}]);
+Route::post('/userlogin','UserLoginController@doLogin');
+Route::post('/registro/new','RegistroController@new');
+Route::get('/registro/validar/email/{token}','RegistroController@validar_email');
+
+Route::get('admin',["as"=>"adminhome", function () {
     return view('admin.index');
-});
-Route::get('/admin/dashboard', function () {
+}])->middleware('auth');;
+Route::get('/dashboard', ["as"=>"dashboard",function () {
     return view('admin.index');
-});
+}])->middleware('auth');
+
 Route::get('/admin/niveles', function () {
     return view('admin.niveles');
-});
+})->middleware('auth');
 Route::get('/admin/notificaciones', function () {
     return view('admin.notificaciones');
-});
+})->middleware('auth');
 Route::get('/admin/activaciones', function () {
     return view('admin.activaciones');
-});
+})->middleware('auth');;
 Route::get('/admin/mis-referidos', function () {
     return view('admin.mis-referidos');
-});
+})->middleware('auth');
 Route::get('/admin/perfil', function () {
     return view('admin.perfil');
-});
-Route::post('/registro/new','RegistroController@new');
+})->middleware('auth');
+Route::get('/admin/logout', function () {
+    return view('admin.perfil');
+})->middleware('auth');
+
+Route::get('logout', 'UserLoginController@logout')->name("logout");

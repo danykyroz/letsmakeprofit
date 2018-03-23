@@ -15,23 +15,23 @@
           <nav class="overlay-navigation nav-block center">
             <ul>
               <li class="current">
-                <a href="#" class="contains-sub-menu">Home</a>
+                <a href="/" class="contains-sub-menu">Home</a>
 
               </li>
               <li>
-                <a href="#" class="contains-sub-menu">Informacion</a>
+                <a href="/informacion" class="contains-sub-menu">Informacion</a>
 
               </li>
               <li>
-                <a href="#" class="contains-sub-menu">Blog</a>
+                <a href="/blog" class="contains-sub-menu">Blog</a>
 
               </li>
               <li>
-                <a href="#" class="contains-sub-menu">Contacto</a>
+                <a href="/contacto" class="contains-sub-menu">Contacto</a>
 
               </li>
               <li>
-                <a href="#" class="contains-sub-menu">¿Como funciona?</a>
+                <a href="/comofunciona" class="contains-sub-menu">¿Como funciona?</a>
 
               </li>
 

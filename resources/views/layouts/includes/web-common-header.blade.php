@@ -3,8 +3,8 @@
     <div class="column width-12 nav-bar-inner">
       <div class="logo">
         <div class="logo-inner">
-          <a href="/"><img src="images/logo-dark1.png" alt="Sartre Logo" /></a>
-          <a href="/"><img src="images/logo.png" alt="Sartre Logo" /></a>
+          <a href="/"><img src="{{asset('images/logo-dark1.png')}}" alt="Sartre Logo" /></a>
+          <a href="/"><img src="{{asset('images/logo.png')}}" alt="Sartre Logo" /></a>
         </div>
       </div>
       <nav class="navigation nav-block secondary-navigation nav-right">
@@ -30,24 +30,24 @@
       <nav class="navigation nav-block primary-navigation nav-right">
         <ul>
           <li class="current">
-            <a href="#">Home</a>
+            <a href="/">Home</a>
 
           </li>
 
           <li class="contains-mega-sub-menu">
-            <a href="#">Informacion</a>
+            <a href="/informacion">Informacion</a>
 
           </li>
           <li>
-            <a href="#">Blog</a>
+            <a href="/blog">Blog</a>
 
           </li>
           <li class="sub-menu-right">
-            <a href="#">Contacto</a>
+            <a href="/contacto">Contacto</a>
 
           </li>
           <li class="contains-mega-sub-menu">
-            <a href="#">Como Funciona</a>
+            <a href="/como-funciona">Como Funciona</a>
 
 
           </li>
