@@ -1,5 +1,40 @@
 @extends('layouts.web')
 @section('body')
+
+<section class="section-block feature-3 bkg-theme">
+    <div class="row flex">
+      <div class="column width-4 push-6">
+        <div class="feature-content">
+          <div class="feature-content-inner center-on-mobile pt-40 pt-mobile-80">
+            <h1 class="color-white mb-20">Lorem ipsum dolor sit amet, consectetur</h1>
+            <p class="color-white">Lorem ipsum dolor sit amet, consecte turLorem ipsum dolor sit amet, consecteturLorem ipsum dolor sit amet.</p>
+            <a href="{{asset('/registro?rid='.$rid)}}" class="button medium text-uppercase border-white bkg-hover-charcoal color-white color-hover-white left mb-20 mb-mobile-50">
+              <span class="icon-app-store left"></span>Registro
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="column width-6 pull-6 offset-2 center">
+        <div class="grid-item design photography">
+          <div class="thumbnail img-scale-in" data-hover-easing="easeInOut" data-hover-speed="700" data-hover-bkg-color="#ffffff" data-hover-bkg-opacity="0.9">
+            <a class="overlay-link lightbox-link" data-group="project-1" data-caption="YouTube Video" href="https://www.youtube.com/embed/vvPbMqkG880?autoplay=1" data-lightbox-animation="slideInTop">
+              <img src="images/feature-iphone-1.jpg" alt=""/>
+              <span class="overlay-info center">
+                <span>
+                  <span>
+                    <span class="project-title">Let´s Make Profit</span>
+                    <span class="project-description">Guia Rapida</span>
+                  </span>
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+<!--
   <section class="section-block feature-3 bkg-theme">
     <div class="row flex">
       <div class="column width-4 push-6">
@@ -7,7 +42,7 @@
           <div class="feature-content-inner center-on-mobile pt-40 pt-mobile-80">
             <h1 class="color-white mb-20">Lorem ipsum dolor sit amet, consectetur ..</h1>
             <p class="color-white">Lorem ipsum dolor sit amet, consecte turLorem ipsum dolor sit amet, consecteturLorem ipsum dolor sit amet.</p>
-            <a href="/registro" class="button medium text-uppercase border-white bkg-hover-charcoal color-white color-hover-white left mb-20 mb-mobile-50">
+            <a href="{{asset('/registro?rid='.$rid)}}" class="button medium text-uppercase border-white bkg-hover-charcoal color-white color-hover-white left mb-20 mb-mobile-50">
               <span class="icon-app-store left"></span>Registro
             </a>
           </div>
@@ -16,12 +51,13 @@
       <div class="column width-6 pull-6 offset-2 center">
         <div class="feature-image">
           <div class="feature-image-inner pt-20 no-padding-on-mobile">
-            <img src="images/feature-iphone-1.jpg" width="" alt=""/>
+            <img src="{{asset('images/feature-iphone-1.jpg')}}" width="" alt=""/>
           </div>
         </div>
       </div>
     </div>
   </section>
+  !-->
   <!-- Feature Section 3 -->
 
   <!-- Features -->

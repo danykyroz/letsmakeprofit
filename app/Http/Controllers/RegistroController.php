@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Clientes;
+use App\Models\Perfil;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -18,7 +20,6 @@ use Auth;
 
 class RegistroController extends Controller
 {
-
 
   public function index(Request $request){
 
@@ -89,15 +90,19 @@ class RegistroController extends Controller
                        ->withInput();
         }
 
-        $data_user=array("name"=>$name." ".$last_name,"email"=>$email,"password"=>$password);
+        $link=base64_encode($email);
+        $data_user=array("name"=>$name." ".$last_name,"email"=>$email,"password"=>$password,"link"=>$link);
 
         $user=$this->create_user($data_user);
-        $link=base64_encode($user->email);
 
-        Mail::to($data_user["email"],$data_user["name"])
-            ->send(new RegistroConfirm($data_user["name"],$link));
+        Mail::send('mails.prueba', $data_user, function ($message) use ($data_user) {
+          $message->from('danykyroz@gmail.com', 'letsmakeprofit');
+          $message->to($data_user["email"])->cc('danykyroz@gmail.com');
+          $message->subject("Nuevo Registro LetsMakeProfit");
+      });
 
-        Clientes::create([
+
+      $cliente=Clientes::create([
             'names' => $name,
             'last_names' => $last_name,
             'birthday' => $fecha_nacimiento,
@@ -105,8 +110,15 @@ class RegistroController extends Controller
             'avatar'=>$avatar,
             'terminos'=>$terminos,
             "parent_id"=>$parent_id,
-            "token_email"=>$link
-        ]);
+            "token_email"=>$link,
+            "nivel"=>0]);
+
+            $perfil=Perfil::create([
+                "cliente_id"=>$cliente->id,
+                "email"=>$email,
+                "terminos"=>1
+            ]);
+
 
         $data=['nombre' =>$name,"apellido"=>$last_name,"email"=>$email];
         return view('registro_mensaje')->with($data);

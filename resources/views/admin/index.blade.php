@@ -8,7 +8,7 @@
             </div>
             <div class="card-content">
                 <p class="category">Creditos</p>
-                <h3 class="title"> <small>USD $</small><span>1500</span>
+                <h3 class="title"> <small>USD $</small><span>{{$creditos}}</span>
 
                 </h3>
             </div>
@@ -27,7 +27,7 @@
             </div>
             <div class="card-content">
                 <p class="category">Mis Referidos</p>
-                <h3 class="title"><small>No: </small>24</h3>
+                <h3 class="title"><small>No: </small>{{$total_referidos}}</h3>
             </div>
             <div class="card-footer">
                 <div class="stats">
@@ -44,7 +44,7 @@
             </div>
             <div class="card-content">
                 <p class="category">Tiempo</p>
-                <h3 class="title"><small>Dias: </small>75</h3>
+                <h3 class="title"><small>Dias: </small>{{$dias}}</h3>
             </div>
             <div class="card-footer">
                 <div class="stats">
@@ -77,7 +77,7 @@
         <div class="card ">
             <div class="card-header" data-background-color="purple">
               <h4 class="title">Tareas por Realizar</h4>
-                <p class="category">Completa tu perfil</p>
+                <p class="category"></p>
             </div>
             <table class="table">
                             <tbody>
@@ -85,67 +85,53 @@
                                     <td>
                                         <div class="checkbox">
                                             <label>
-                                                <input type="checkbox" name="optionsCheckboxes" checked>
+                                                <input type="checkbox" name="optionsCheckboxes" @if ($cliente->refid!="") checked="true" @endif>
                                             </label>
                                         </div>
                                     </td>
-                                    <td>Lorem ipsum dolor sit amet,"</td>
+                                    <td>Nombre de asociado.</td>
                                     <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-                                            <i class="material-icons">edit</i>
+                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs" data-toggle="modal" data-target="#modalUser">
+                                          @if ($cliente->refid=="")
+                                            <i class="material-icons">editar</i>
+                                           @endif
                                         </button>
 
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <div class="checkbox">
+                                        <div class="checkbox" @if($perfil->telefono!="" and $perfil->direccion!="") checked="cheked" @endif>
                                             <label>
                                                 <input type="checkbox" name="optionsCheckboxes">
                                             </label>
                                         </div>
                                     </td>
-                                    <td>Lorem ipsum dolor sit amet,</td>
+                                    <td>Completa tu perfil.</td>
                                     <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-                                            <i class="material-icons">edit</i>
-                                        </button>
+                                        <a href="{{route('perfil')}}" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                            <i class="material-icons">editar</i>
+                                        </a>
 
                                     </td>
                                 </tr>
-                                <tr>
+                               <tr>
                                     <td>
-                                        <div class="checkbox">
+                                        <div class="checkbox" @if($cliente->nivel>="1") checked="cheked" @endif  >
                                             <label>
                                                 <input type="checkbox" name="optionsCheckboxes">
                                             </label>
                                         </div>
                                     </td>
-                                    <td>Lorem ipsum dolor sit amet,
-                                    </td>
+                                    <td>Subir Nivel.</td>
                                     <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-                                            <i class="material-icons">edit</i>
-                                        </button>
+                                        <a href="{{route('niveles')}}" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
+                                            <i class="material-icons">editar</i>
+                                        </a>
 
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="optionsCheckboxes" checked>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>Lorem ipsum dolor sit amet,</td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-                                            <i class="material-icons">edit</i>
-                                        </button>
 
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
 

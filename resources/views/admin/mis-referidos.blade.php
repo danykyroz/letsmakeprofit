@@ -14,7 +14,8 @@
       <div class="card-content table-responsive">
         <table class="table">
           <thead class="text-primary">
-            <tr><th>Nombre</th>
+            <tr>
+              <th>Nombre</th>
               <th>Usuario</th>
               <th>Numero</th>
               <th>Correo</th>
@@ -22,62 +23,25 @@
               <th>Ver </th>
             </tr></thead>
             <tbody>
+
+              @foreach ($listreferidos as $key=>$data)
               <tr>
-                <td>Dakota Rice</td>
-                <td>Niger</td>
-                <td>3146654646</td>
-                <td>dsdfsdf@gmail.com</td>
-                <td class="text-danger">Nivel 2</td>
-                <!--    boton modal    -->
+                <td>{{ $data["referido"]["names"] }} {{ $data["referido"]["last_names"] }}</td>
+                <td><a href="mis-referidos/detalle/{{$data['referido']['refid']}}">{{ $data["referido"]["refid"] }}</a> </td>
+                <td>{{ $data["perfil"]->telefono }} </td>
+                <td>{{ $data["perfil"]->email }} </td>
+                <td>Nivel {{ $data["referido"]->nivel }} </td>
                 <td><button class="btn btn-primary" data-toggle="modal" data-target=".modal-tarjeta-usuario"><i class="material-icons">unarchive</i>Ver<div class="ripple-container"></div></button></td>
+
               </tr>
-              <tr>
-                <td>Dakota Rice</td>
-                <td>Niger</td>
-                <td>3146654646</td>
-                <td>dsdfsdf@gmail.com</td>
-                <td class="text-danger">Nivel 2</td>
-                <!--    boton modal    -->
-                <td><button class="btn btn-primary" data-toggle="modal" data-target=".modal-tarjeta-usuario"><i class="material-icons">unarchive</i>Ver<div class="ripple-container"></div></button></td>
-              </tr>
-              <tr>
-                <td>Dakota Rice</td>
-                <td>Niger</td>
-                <td>3146654646</td>
-                <td>dsdfsdf@gmail.com</td>
-                <td class="text-danger">Nivel 2</td>
-                <!--    boton modal    -->
-                <td><button class="btn btn-primary" data-toggle="modal" data-target=".modal-tarjeta-usuario"><i class="material-icons">unarchive</i>Ver</button></td>
-              </tr>
-              <tr>
-                <td>Dakota Rice</td>
-                <td>Niger</td>
-                <td>3146654646</td>
-                <td>dsdfsdf@gmail.com</td>
-                <td class="text-danger">Nivel 2</td>
-                <!--    boton modal    -->
-                <td><button class="btn btn-primary" data-toggle="modal" data-target=".modal-tarjeta-usuario"><i class="material-icons">unarchive</i>Ver</button></td>
-              </tr>
-              <tr>
-                <td>Dakota Rice</td>
-                <td>Niger</td>
-                <td>3146654646</td>
-                <td>dsdfsdf@gmail.com</td>
-                <td class="text-danger">Nivel 2</td>
-                <!--    boton modal    -->
-                <td><button class="btn btn-primary" data-toggle="modal" data-target=".modal-tarjeta-usuario"><i class="material-icons">unarchive</i>Ver</button></td>
-              </tr>
-              <tr>
-                <td>Dakota Rice</td>
-                <td>Niger</td>
-                <td>3146654646</td>
-                <td>dsdfsdf@gmail.com</td>
-                <td class="text-danger">Nivel 2</td>
-                <!--    boton modal    -->
-                <td><button class="btn btn-primary" data-toggle="modal" data-target=".modal-tarjeta-usuario"><i class="material-icons">unarchive</i>Ver<div class="ripple-container"></div></button></td>
-              </tr>
+
+              @endforeach
+
+
             </tbody>
           </table>
+          {{ $referidos->links() }}
+
         </div>
       </div>
     </div>

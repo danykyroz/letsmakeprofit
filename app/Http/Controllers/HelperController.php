@@ -23,10 +23,14 @@ public static function link_asociado(){
   if($cliente->refid==""){
     echo "<a href='#' onclick='editar_link_asociado(".$cliente->id.");return false' >Editar</a>";
   }else{
-      echo "<span>www.letsmakeprofit.com/".$cliente->refid."</span>";
+      echo "<span class='link-asociado'>http://letsmakeprofit.co/m/".$cliente->refid."</span>";
   }
+}
 
+public static function nombre_usuario(){
 
+  $cliente=Clientes::where("user_id","=",Auth::user()->id)->get()->first();
+  echo $cliente->names." ".$cliente->last_names;
 }
 
 

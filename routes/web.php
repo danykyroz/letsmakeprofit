@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/','HomeController@index')->name("webindex");
+Route::get('/m/{rid}','HomeController@homerid')->name("homerid");
 Route::get('/registro','RegistroController@index');
 Route::get('/existe_email','RegistroController@existe_email');
 Route::get('/login',["as"=>"login", function () {
@@ -25,26 +24,37 @@ Route::get('/registro/validar/email/{token}','RegistroController@validar_email')
 
 Route::get('admin',["as"=>"adminhome", function () {
     return view('admin.index');
-}])->middleware('auth');;
-Route::get('/dashboard', ["as"=>"dashboard",function () {
-    return view('admin.index');
 }])->middleware('auth');
 
-Route::get('/admin/niveles', function () {
-    return view('admin.niveles');
-})->middleware('auth');
-Route::get('/admin/notificaciones', function () {
-    return view('admin.notificaciones');
-})->middleware('auth');
+Route::get('/admin/changeuserlink','DashboardController@changeUserLink')
+->middleware('auth');
+
+Route::get('/dashboard', 'DashboardController@index')->name("dashboard")
+->middleware('auth');
+
+Route::get('/admin/perfil', 'PerfilController@index')->name("perfil")
+->middleware('auth');
+
+Route::post('/admin/perfil/update','PerfilController@update')->name("perfil_update")
+->middleware('auth');
+
+Route::get('/admin/notificaciones','NotificacionesController@index')->name("notificaciones")
+->middleware('auth');
+
+Route::get('/admin/notificacion/delete','NotificacionesController@delete')->name("notificacion_delete")
+->middleware('auth');
+
+Route::get('/admin/niveles','NivelesController@index')->name("niveles")
+->middleware('auth');
+
+Route::get('/admin/mis-referidos','ReferidosController@index')->name("referidos")
+->middleware('auth');
+
+
 Route::get('/admin/activaciones', function () {
     return view('admin.activaciones');
-})->middleware('auth');;
-Route::get('/admin/mis-referidos', function () {
-    return view('admin.mis-referidos');
 })->middleware('auth');
-Route::get('/admin/perfil', function () {
-    return view('admin.perfil');
-})->middleware('auth');
+
 Route::get('/admin/logout', function () {
     return view('admin.perfil');
 })->middleware('auth');
