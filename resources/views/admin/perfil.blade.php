@@ -187,8 +187,10 @@
                                     <img class="logo-pago logo-pago-admin" src="{{asset('theme/admin/img')}}/{{$medio->imagen}}" alt="{{$medio->nombre}}">
                                     <div class="col-sm-12">
                                       <div class="form-group label-floating is-focused is-empty">
-                                        <label class="control-label ">Link {{$medio->nombre}}</label>
-                                        <input type="text" class="form-control" name="medio[{{$medio->id}}]" value="{{$medio->link}}" >
+                                        <label class="control-label is-focused ">Datos {{$medio->nombre}}</label>
+                                        <input type="text" class="form-control" name="medio[{{$medio->id}}][nombre]" value="{{$medio->nombre}}"  placeholder="Nombre">
+                                        <input type="text" class="form-control" name="medio[{{$medio->id}}][numero]" value="{{$medio->numero}}" placeholder="Número" >
+                                        <input type="text" class="form-control" name="medio[{{$medio->id}}][link]" value="{{$medio->link}}" placeholder="Link" >
                                         <span class="material-input"></span></div>
                                       </div>
                                     </figure>

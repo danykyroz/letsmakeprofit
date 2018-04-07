@@ -26,6 +26,7 @@
 
               @foreach ($listreferidos as $key=>$data)
               <?php $id=$data["perfil"]->cliente_id; ?>
+
               <tr>
                 <td>{{ $data["referido"]["names"] }} {{ $data["referido"]["last_names"] }}</td>
                 <td><a href="mis-referidos/detalle/{{$data['referido']['refid']}}">{{ $data["referido"]["refid"] }}</a> </td>
@@ -43,9 +44,11 @@
 
             </tbody>
           </table>
+          <a href="{{@route("referidos")}}" class="btn btn-default">Volver</a>
           {{ $referidos->links() }}
 
         </div>
+
       </div>
     </div>
   </div>
@@ -53,6 +56,7 @@
 
 
 @stop
+
 
 @section("add-scripts")
 <script>

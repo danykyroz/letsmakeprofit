@@ -54,35 +54,35 @@
 						<div class="row">
 							<div class="column width-6">
 								<div class="field-wrapper">
-									<input type="text" name="name" value="Daniel" class="form-fname form-element large" placeholder="First Name*" tabindex="1" required="">
+									<input type="text" name="name" value="" class="form-fname form-element large" placeholder="First Name*" tabindex="1" required="">
 								</div>
 							</div>
 							<div class="column width-6">
 								<div class="field-wrapper">
-									<input type="text" name="last_name" value="Quiroz" class="form-lname form-element large" placeholder="Last Name" tabindex="2">
+									<input type="text" name="last_name" value="" class="form-lname form-element large" placeholder="Last Name" tabindex="2">
 								</div>
 							</div>
 							<div class="column width-6">
 								<div class="field-wrapper">
-									<input type="email" name="email" value="danykyroz@gmail.com" id="email" class="form-email form-element large" placeholder="Email address*" tabindex="3" required="">
-								</div>
-							</div>
-
-							<div class="column width-6">
-								<div class="field-wrapper">
-									<input type="text" name="date" class="form-aux form-date form-element large" value="29/11/1987" placeholder="Day/Month/Year" tabindex="5">
+									<input type="email" name="email" value="" id="email" class="form-email form-element large" placeholder="Email address*" tabindex="3" required="">
 								</div>
 							</div>
 
 							<div class="column width-6">
 								<div class="field-wrapper">
-									<input type="password" id="password" name="password" value="123456" class="form-password form-element large" placeholder="Password" tabindex="4" required="">
+									<input type="text" name="date" class="form-aux form-date form-element large" value="" placeholder="Day/Month/Year" tabindex="5">
 								</div>
 							</div>
 
 							<div class="column width-6">
 								<div class="field-wrapper">
-									<input type="password" id="confirm_password" name="password_confirmation" value="123456" class="form-password form-element large" placeholder="Confirmar Password" tabindex="6" required="">
+									<input type="password" id="password" name="password" value="" class="form-password form-element large" placeholder="Password" tabindex="4" required="">
+								</div>
+							</div>
+
+							<div class="column width-6">
+								<div class="field-wrapper">
+									<input type="password" id="confirm_password" name="password_confirmation" value="" class="form-password form-element large" placeholder="Confirmar Password" tabindex="6" required="">
 								</div>
 							</div>
 

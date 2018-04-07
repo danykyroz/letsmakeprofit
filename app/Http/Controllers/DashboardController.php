@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Auth;
+use DB;
 
 
 class DashboardController extends Controller
@@ -23,7 +24,8 @@ class DashboardController extends Controller
 
     $cliente=Clientes::where("user_id","=",Auth::user()->id)->get()->first();
     $perfil=Perfil::where("cliente_id","=",$cliente->id)->get()->first();
-    $creditos=0;
+    $creditos=$this->getCreditos($cliente->id);
+    $request->session()->put("creditos",$creditos);
     $referidos=Clientes::where("parent_id","=",$cliente->id)->get();
     $ahora=strtotime(date("Y-m-d"));
     $fecha_registro=strtotime((date_format($cliente->created_at,"Y-m-d")));
@@ -57,6 +59,19 @@ class DashboardController extends Controller
 
     return Response(json_encode(array("success"=>$success,"mensaje"=>$mensaje)));
 
+  }
+
+  private function getCreditos($cliente_id){
+    $sql="select sum(dinero) as credito,cliente_id from notificacion_pago where aprobado=1";
+    $sql.=" and cliente_id=$cliente_id  group by `cliente_id`";
+    $credito=0;
+    $result=DB::select(DB::raw($sql));
+    if(is_array($result)){
+      if(isset($result[0])){
+          $credito=$result[0]->credito;
+      }
+    }
+    return $credito;
   }
 
 

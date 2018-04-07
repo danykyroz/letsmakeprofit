@@ -29,11 +29,25 @@ class ReferidosController extends Controller
         $perfil=Perfil::where("cliente_id","=",$referido->id)->get()->first();
         $list_referidos[]=array("referido"=>$referido,"perfil"=>$perfil);
     }
-    $data=array("listreferidos"=>$list_referidos,"referidos"=>$referidos);
+    $data=array("listreferidos"=>$list_referidos,"referidos"=>$referidos,"cliente"=>$cliente);
     return view('admin.mis-referidos')->with($data);
 
   }
 
+  public function detalle(Request $request,$refid){
 
+    //Consultar notificaciones no eliminadas y en orden descendente por fecha
+    $cliente=Clientes::where("refid","=",$refid)->get()->first();
+    $referidos=Clientes::where("parent_id","=",$cliente->id)->paginate(25);
+    $list_referidos=array();
+    foreach($referidos as $referido){
+        $perfil=Perfil::where("cliente_id","=",$referido->id)->get()->first();
+        $list_referidos[]=array("referido"=>$referido,"perfil"=>$perfil);
+    }
+    $data=array("listreferidos"=>$list_referidos,"referidos"=>$referidos,"cliente"=>$cliente);
+    return view('admin.mis-referidos-detalle')->with($data);
+
+  }
+  
 
 }

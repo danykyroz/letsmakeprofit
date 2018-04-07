@@ -47,13 +47,24 @@ Route::get('/admin/notificacion/delete','NotificacionesController@delete')->name
 Route::get('/admin/niveles','NivelesController@index')->name("niveles")
 ->middleware('auth');
 
+
+Route::post('/admin/niveles','NivelesController@notificar_pago')->name("notificar_pago")
+->middleware('auth');
+
 Route::get('/admin/mis-referidos','ReferidosController@index')->name("referidos")
 ->middleware('auth');
 
+Route::get('/admin/mis-referidos/detalle/{rid}','ReferidosController@detalle')->name("referidos_detalle")
+->middleware('auth');
 
-Route::get('/admin/activaciones', function () {
-    return view('admin.activaciones');
-})->middleware('auth');
+Route::get('/admin/perfil/show-ajax/{id}','PerfilController@show')->name("perfil_showajax")
+->middleware('auth');
+
+Route::get('/admin/activaciones','NivelesController@activaciones')->name("activaciones")
+->middleware('auth');
+
+Route::get('/admin/activaciones/aprobarusuario/','NivelesController@aprobar_usuario')->name("activaciones_aprobarusuario")
+->middleware('auth');
 
 Route::get('/admin/logout', function () {
     return view('admin.perfil');

@@ -27,24 +27,14 @@ class PerfilController extends Controller
     $cliente=Clientes::where("user_id","=",Auth::user()->id)->get()->first();
     $user=User::where("id","=",Auth::user()->id)->get()->first();
     $perfil=Perfil::where("cliente_id","=",$cliente->id)->get()->first();
-    $arr_mediospago=Mediospago::all();
-    $mediospagoCliente=MediospagoClientes::where("cliente_id","=",$cliente->id)->get();
-    $mediospago=[];
     if(!is_object($perfil)){
       $perfil=Perfil::create([
           "cliente_id"=>$cliente->id
       ]);
     }
 
-    foreach($arr_mediospago as $medio){
-        $medio["link"]="";
-        $mediospago[$medio->id]=$medio;
-    }
-    foreach($mediospagoCliente as $mediocliente){
-      $medio=$mediospago[$mediocliente->mediopago_id];
-      $medio["link"]=$mediocliente->link;
-      $mediospago[$mediocliente->mediopago_id]=$medio;
-    }
+    $mediospago=$this->getMediosPago($cliente);
+    
     $data=['cliente' =>$cliente,"user"=>$user,"perfil"=>$perfil,"mediospago"=>$mediospago];
 
     if($request->session()->has('mensaje_success')!=""){
@@ -59,6 +49,19 @@ class PerfilController extends Controller
       $request->session()->forget('mensaje_bad');
     }
     return view('admin.perfil')->with($data);
+  }
+
+
+  public function show(Request $request, $id){
+
+    $cliente=Clientes::where("id","=",$id)->get()->first();
+    $perfil=Perfil::where("cliente_id","=",$cliente->id)->get()->first();
+    $mediospago=$this->getMediosPago($cliente);
+
+    $data=array("cliente"=>$cliente,"perfil"=>$perfil,"mediospago"=>$mediospago);
+    return view('admin.perfil-detalle')->with($data);
+
+
   }
 
   public function update(Request $request){
@@ -112,21 +115,27 @@ class PerfilController extends Controller
 
      //Actualizar Medios de pago
      $medios=$_POST["medio"];
-     foreach ($medios as $id => $link) {
 
+     foreach ($medios as $key => $medio) {
+      $medio=(object) $medio;
       //Buscar o crear el medio de pago del cliente
-      $existe=MediospagoClientes::where("mediopago_id","=",$id)->where("cliente_id","=",$cliente->id)->get()->first();
+      $existe=MediospagoClientes::where("mediopago_id","=",$key)->where("cliente_id","=",$cliente->id)->get()->first();
+
       if(is_object($existe)){
         $medio_cliente=$existe;
-        $medio_cliente->link=$link;
+        $medio_cliente->link=$medio->link;
+        $medio_cliente->nombre=$medio->nombre;
+        $medio_cliente->numero=$medio->numero;
         $medio_cliente->save();
       }
 
       else{
         $medio_cliente=MediospagoClientes::create([
             "cliente_id"=>$cliente->id,
-            "mediopago_id"=>$id,
-            "link"=>$link
+            "mediopago_id"=>$key,
+            "link"=>$medio->link,
+            "numero"=>$medio->numero,
+            "nombre"=>$medio->nombre
         ]);
       }
 
@@ -139,5 +148,29 @@ class PerfilController extends Controller
 
   }
 
+
+  private function getMediosPago($cliente){
+
+    $arr_mediospago=Mediospago::all();
+    $mediospagoCliente=MediospagoClientes::where("cliente_id","=",$cliente->id)->get();
+    $mediospago=[];
+    
+    foreach($arr_mediospago as $medio){
+        $medio["link"]="";
+        $medio["numero"]="";
+        $mediospago[$medio->id]=$medio;
+    }
+
+    foreach($mediospagoCliente as $mediocliente){
+      $medio=$mediospago[$mediocliente->mediopago_id];
+      $medio["link"]=$mediocliente->link;
+      $medio["nombre"]=$mediocliente->nombre;
+      $medio["numero"]=$mediocliente->numero;
+      
+      $mediospago[$mediocliente->mediopago_id]=$medio;
+    }
+
+    return $mediospago;
+  }
 
 }
